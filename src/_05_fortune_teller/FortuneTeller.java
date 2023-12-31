@@ -5,9 +5,11 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import game_tools.Sound;
@@ -24,11 +26,11 @@ public class FortuneTeller extends JPanel implements Runnable, MouseListener {
         fortuneTellerImage = ImageIO.read(getClass().getResource("fortune teller.png"));
         
         // 2. Adjust the frameWidth and frameHeight variables to fit your image nicely (doesn’t need a new line of code)
-        
+        fortuneTellerImage.getScaledInstance(frameWidth,frameHeight,BufferedImage.TYPE_INT_ARGB);
         // 3. Complete the begin() method in the FortuneTellerRunner class
         
         // 4. add a mouse listener to the frame
-        
+        frame.addMouseListener(this);
     }
 
     @Override
@@ -37,12 +39,12 @@ public class FortuneTeller extends JPanel implements Runnable, MouseListener {
         int mouseY = e.getY();
         
         // 5. Print the mouseX variable
-        
+        System.out.println(mouseX+","+mouseY);
         // 6. Add the mouseY variable to the previous line so that it prints out too (no new line)
         
         // 7. Adjust your secret location co-ordinates here:
         int secretLocationX = 0;
-        int secretLocationY = 0;
+        int secretLocationY = 30;
         
         // If the mouse co-ordinates and secret location are close, we'll let them ask a question.
         if (areClose(mouseX, secretLocationX) && areClose(mouseY, secretLocationY)) {
@@ -52,10 +54,24 @@ public class FortuneTeller extends JPanel implements Runnable, MouseListener {
             // 9. Play the sound
             
             // 10. Insert your completed Magic 8 ball code here
-            
+        	int rN=new Random().nextInt(4);
+        	System.out.println(rN);
+        	JOptionPane.showInputDialog("Enter a question for the magic 8 ball.");
+        	if(rN==0) {
+        		JOptionPane.showMessageDialog(null,"Yes");
+        	}
+        	else if(rN==1) {
+        		JOptionPane.showMessageDialog(null,"No");
+        	}
+        	else if(rN==2) {
+        		JOptionPane.showMessageDialog(null,"Maybe you should go ask google.");
+        	}
+        	else if(rN==3) {
+        		JOptionPane.showMessageDialog(null,"Go ask chatGPT");
+        	}
         }
-
     }
+    
 
     private boolean areClose(int mouseX, int secretLocationX) {
         return mouseX < secretLocationX + 15 && mouseX > secretLocationX - 15;
