@@ -9,7 +9,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class CalculatorRunner{
+import _04_book_of_illusions.BookOfIllusions;
 
+public class CalculatorRunner{
+	public static void main(String[] args)  {
+		Calculator calc=new Calculator();
+		calc.trueCalculator();
+	}
 }
 

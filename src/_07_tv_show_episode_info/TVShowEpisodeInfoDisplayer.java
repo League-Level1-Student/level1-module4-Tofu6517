@@ -1,6 +1,9 @@
 package _07_tv_show_episode_info;
 
 
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -8,15 +11,36 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
-public class TVShowEpisodeInfoDisplayer {
-	
+public class TVShowEpisodeInfoDisplayer implements ActionListener{
+	JTextField field1=new JTextField();
+	JPanel newPanel=new JPanel(new GridLayout(1,2,10,10));
+	JButton submitB=new JButton();
 	public TVShowEpisodeInfoDisplayer() {
-		
-	}
+		submitB.setText("Submit");
+		submitB.addActionListener(this);
+		JFrame frame=new JFrame("TV Show Info");
+		frame.setVisible(true);
+		frame.setSize(200,80);
+		frame.add(newPanel);
+		newPanel.add(field1);
+		newPanel.add(submitB);
 
-	
+	}
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == submitB) {
+			String fieldText1=field1.getText();
+			JOptionPane.showMessageDialog(null,getShowEpisodeData(fieldText1));
+		}
+	}
 	
 	
 

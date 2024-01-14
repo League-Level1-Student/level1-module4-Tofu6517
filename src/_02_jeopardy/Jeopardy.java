@@ -124,6 +124,7 @@ public class Jeopardy implements ActionListener {
 		if(e.getSource() == firstButton) {
 			// Call the askQuestion() method
 			askQuestion("question for firstButton","CorrectAnswer",200);
+			secondButton.setText("");
 		// Complete the code in the askQuestion() method. When you play the game, the score should change.
 			
 		}
