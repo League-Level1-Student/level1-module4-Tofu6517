@@ -1,6 +1,17 @@
 package _08_pig_latin;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class PigLatinTranslator {
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import _07_tv_show_episode_info.TVShowEpisodeInfoDisplayer;
+
+public class PigLatinTranslator implements ActionListener{
     /**
      * Method to translate a english to pig latin.
      * 
@@ -8,6 +19,39 @@ public class PigLatinTranslator {
      *            The sentence in English
      * @return The pig latin version
      */
+	public static void main(String[] args) {
+		PigLatinTranslator pLT=new PigLatinTranslator();	
+		pLT.pigLatinSetUp();
+	}
+	JTextField field1=new JTextField();
+	JTextField field2=new JTextField();
+	JPanel newPanel=new JPanel();
+	JButton submit1=new JButton();
+	JButton submit2=new JButton();
+	JButton submitAnswer=new JButton();
+	public void pigLatinSetUp() {
+		submit1.setText(">>");
+		submit2.setText("<<");
+		submitAnswer.setText("Submit");
+		field1.setPreferredSize(new Dimension(200,20));
+		field2.setPreferredSize(new Dimension(200,20));
+		JFrame frame=new JFrame("Pig Latin");
+		frame.setVisible(true);
+		frame.setSize(200,80);
+		frame.add(newPanel);
+		submitAnswer.addActionListener(this);
+		newPanel.add(field1);
+		newPanel.add(submit1);
+		newPanel.add(submit2);
+		newPanel.add(field2);
+		newPanel.add(submitAnswer);
+	}
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == submitAnswer) {
+			String field1Text=field1.getText();
+			field2.setText(translateEnglishToPigLatin(field1Text));
+		}
+	}
     public static String translateEnglishToPigLatin(String s) {
         String latin = "";
         int i = 0;
@@ -120,4 +164,6 @@ public class PigLatinTranslator {
                 return i;
         return 0;
     }
+
+
 }
