@@ -18,7 +18,6 @@ public class SlotMachine implements ActionListener{
 	public static void main(String[] args) {
 		SlotMachine sM=new SlotMachine();
 		sM.slotSetUp();
-
 	}
 	JFrame frame=new JFrame("the slots");
 	JPanel panel=new JPanel();
@@ -26,7 +25,7 @@ public class SlotMachine implements ActionListener{
 	JLabel slot2=new JLabel();
 	JLabel slot3=new JLabel();
 	JButton spin=new JButton("spin");
-
+	int winCounter=0;
 	public void slotSetUp() {
 		spin.addActionListener(this);
 		frame.setVisible(true);
@@ -55,21 +54,34 @@ public class SlotMachine implements ActionListener{
 		return pic;
 	}
 	public void drawSlots() {
-		slot1=showImage(randomPic());
-		slot2=showImage(randomPic());
-		slot3=showImage(randomPic());
+		String slotPic1=randomPic();
+		String slotPic2=randomPic();
+		String slotPic3=randomPic();
+		slot1=showImage(slotPic1);
+		slot2=showImage(slotPic2);
+		slot3=showImage(slotPic3);
 		panel.add(slot1);
 		panel.add(slot2);
 		panel.add(slot3);
-		frame.setSize(700,301);
 		panel.add(spin);
-
+		frame.pack();
+		if(slotPic1.equals(slotPic2)&&slotPic1.equals(slotPic3)) {
+			System.out.println("YOU WIN");
+			winCounter=winCounter+1;
+		}
+		else {
+			System.out.println("YOU LOSE");
+		}
+		System.out.println("AMOUNT OF WINS IS "+winCounter);
 	}
+
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==spin) {
 		slot1.setIcon(new ImageIcon(getClass().getResource(randomPic())));
-			JPanel panel=new JPanel();
-		
+			frame.remove(panel);
+			panel=new JPanel();
+			frame.add(panel);
+
 			drawSlots();
 		}
 	}
