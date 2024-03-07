@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -24,6 +25,12 @@ import javax.swing.JPanel;
 public class LightsOut implements MouseListener {
 	JFrame frame = new JFrame();
 	JPanel gamePanel = new JPanel();
+	
+	public int randomNum() {
+		Random rn = new Random();
+		int onOrOff = rn.nextInt(2) + 1;
+		return onOrOff;
+	}
 	public LightsOut() {
 
 		/** PART 1. CREATE YOUR LIGHT BOARD **/
@@ -34,6 +41,8 @@ public class LightsOut implements MouseListener {
 
 			//2. Add 25 JLabels to your gamePanel (these are your lights)
 		for(int i=0;i<25;i++) {
+			int onOrOff=randomNum();;
+			if(onOrOff==1) {
 			JLabel light=new JLabel();
 			light.setText(Integer.toString(i));
 			light.setBackground(Color.WHITE);
@@ -41,10 +50,19 @@ public class LightsOut implements MouseListener {
 			light.addMouseListener(this);
 			gamePanel.add(light);
 			}
+			else {
+				JLabel light=new JLabel();
+				light.setText(Integer.toString(i));
+				light.setBackground(Color.LIGHT_GRAY);
+				light.setOpaque(true);
+				light.addMouseListener(this);
+				gamePanel.add(light);
+				
+			}
 		frame.setSize(500, 500);
 		frame.add(gamePanel);
 		frame.pack();
-
+		}
 			//3. Use setText() to add a position number to each light (0-24).
 			
 			//4. Set the background of each light to LIGHT_GRAY
