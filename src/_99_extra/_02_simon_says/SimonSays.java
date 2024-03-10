@@ -22,7 +22,7 @@ public class SimonSays extends KeyAdapter {
     private int tries = 0;
     private boolean simonSays = false;
     Date timeAtStart;
-
+    int points=0;
     // Complete steps 1 - 7 before you test
     // 1. Declare a JFrame variable
     JFrame frame= new JFrame();
@@ -44,9 +44,10 @@ public class SimonSays extends KeyAdapter {
     @Override
     public void keyPressed(KeyEvent e) {
         // 15. Make a points variable to track the score.
-    	int points=0;
+    	int keyCode= e.getKeyCode();
         // 16. If the keyCode matches the imageIndex and "Simon says"
-    	if(keyCode==imageIndex||keyCode=="Simon says") {
+
+		if(keyCode==imageIndex && simonSays) {
     		points=points+1;
     		Sound.speak("You were correct");
     	}
@@ -56,24 +57,23 @@ public class SimonSays extends KeyAdapter {
     	
         // 19. If the keyCode doesn't match the imageIndex and "Simon didn't
         // say..."
-    	else if(keyCode!=imageIndex||keyCode=="Simon didn't say..."){
-    		points=points-1;
-    		Sound.speak("You were not correct");
-    		tries=tries+1;
+    	else if(keyCode!=imageIndex && !simonSays){
+    		points=points+1;
+    		Sound.speak("You were correct");
+    		
     	}
         // 20. Increase the value of score
-
+    	tries=tries+1;
         // 21. Use the Sound.speak method to tell the user they were correct
 
         // 22. Increment tries by 1
-    	if(tries>5) {
-    		System.out.println("Your score is"+points);
+    	if(tries>9) {
+    		System.out.println("Your score is "+points);
     		System.exit(0);
-    		frame.removeAll();
-    		showImage();
     	}
         // 25. If tries is greater than 9 (or however many you want)...
-
+    	frame.removeAll();
+		showImage();
         // 26. Tell the user their score
 
         // 27. Exit the program
@@ -83,7 +83,7 @@ public class SimonSays extends KeyAdapter {
         // 24. Call the showImage method to show a new image
     }
 
-    private void showImage() {
+    public void showImage() {
         // 5. Initialize your frame to a new JFrame()
     	JFrame frame=new JFrame();
         // 6. Set the frame to visible
@@ -99,44 +99,25 @@ public class SimonSays extends KeyAdapter {
         // JFrame.EXIT_ON_CLOSE
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         // 11. Add a key listener to the frame
-        frame.addKeyListener(null);
+        frame.addKeyListener(this);
         // 12. Create a new instance of Random
+
         Random rn = new Random();
-        int ran = rn.nextInt(8) + 1;
+        int ran = rn.nextInt(2) + 1;
         // 13. Use the Random and the Sound.speak method to either say
         // "Simon says press this key" or "Press this key"
         if(ran==1) {
-        	Sound.speak("Simon says press the up key");
+        	System.out.println("Simon says press this key");
+        	Sound.speak("Simon says press this key");
         	simonSays=true;
         }
+   
         if(ran==2) {
-        	Sound.speak("Simon says press the down key");
-        	simonSays=true;
-        }
-        if(ran==3) {
-        	Sound.speak("Simon says press the left key");
-        	simonSays=true;
-        }
-        if(ran==4) {
-        	Sound.speak("Simon says press the right key");
-        	simonSays=true;
-        }
-        if(ran==5) {
-        	Sound.speak("press the up key");
+        	System.out.println("press this key");
+        	Sound.speak("press this key");
         	simonSays=false;
         }
-        if(ran==6) {
-        	Sound.speak("press the down key");
-        	simonSays=false;
-        }
-        if(ran==7) {
-        	Sound.speak("press the left key");
-        	simonSays=false;
-        }
-        if(ran==8) {
-        	Sound.speak("press the right key");
-        	simonSays=false;
-        }
+   
         // 14. Above, set the value of simonSays to true/false appropriately
 
     }
